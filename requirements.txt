@@ -1,0 +1,15 @@
+BeautifulSoup==3.2.1
+Twisted==13.1.0
+beautifulsoup4==4.3.2
+decorator==3.4.0
+giphypop==0.2
+helga==1.6.3
+pyOpenSSL==0.13
+pymongo==2.5.2
+pystache==0.5.4
+pytz==2013b
+requests==2.2.1
+smokesignal==0.5
+tweepy==2.1
+wsgiref==0.1.2
+zope.interface==4.1.2
