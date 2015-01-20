@@ -13,7 +13,7 @@ def get_mods(soup, index):
 
     return modifiers
 
-def get_soup(event_url):
+def get_soup():
     response = requests.get(event_url)
     html = response.text
 
@@ -37,6 +37,6 @@ def heroic_info(soup):
                        'mods': heroic_mods(soup)}
 
 if __name__ == '__main__':
-    soup = get_soup(event_url)
+    soup = get_soup()
     print nightfall_info(soup)
     print heroic_info(soup)
