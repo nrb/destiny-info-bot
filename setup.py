@@ -10,6 +10,11 @@ setup(
     py_modules=['destiny_bot', 'scraper'],
     include_package_data=True,
     zip_safe=True,
+    install_requires=[
+        'beautifulsoup4==4.3.2',
+        'requests==2.2.1',
+        'helga==1.6.3',
+    ],
     entry_points = dict(
         helga_plugins=[
             'nightfall = destiny_bot:nightfall',
