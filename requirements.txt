@@ -3,7 +3,7 @@ Twisted==13.1.0
 beautifulsoup4==4.3.2
 decorator==3.4.0
 giphypop==0.2
-helga==1.6.3
+helga==1.6.4
 pyOpenSSL==0.13
 pymongo==2.5.2
 pystache==0.5.4
