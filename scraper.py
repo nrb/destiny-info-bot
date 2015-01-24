@@ -50,8 +50,18 @@ def daily_info():
     return template % {'strike': title, 'mods': modifiers}
 
 
+def crucible_info():
+    soup = get_soup("http://db.planetdestiny.com/events")
+
+    act_titles = soup.select('div.activity-title')
+    mode_title = act_titles[1].text.strip()
+
+    return "Daily Crucible mode: %s" % mode_title
+
+
 if __name__ == '__main__':
     soup = get_soup()
     print nightfall_info(soup)
     print heroic_info(soup)
     print daily_info()
+    print crucible_info()
