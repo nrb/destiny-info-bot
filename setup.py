@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='destiny_bot',
-    version='0.0.6',
+    version='0.0.7',
     description='Set of commands that scrape destinytracker.com for info.',
     author='Nolan Brubaker',
     author_email='palendae@gmail.com',
@@ -19,6 +19,7 @@ setup(
         helga_plugins=[
             'nightfall = destiny_bot:nightfall',
             'heroic = destiny_bot:heroic',
+            'daily = destiny_bot:daily',
         ]
     )
 )
