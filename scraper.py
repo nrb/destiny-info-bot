@@ -64,6 +64,49 @@ def crucible_info():
     return "Daily Crucible mode: %s" % mode_title
 
 
+def _read_bounty_tables(vendor):
+
+    soup = get_soup("http://db.planetdestiny.com/events")
+    bounty_tables = soup.select('table')
+
+    vendor = vendor.lower()
+
+    index = {'eris': 0,
+               'crucible': 1,
+               'vanguard': 2,
+    }[vendor]
+
+    table = bounty_tables[index]
+
+    # The first row is the heading
+    rows = table.select('tr')[1:]
+
+    bounties = {}
+    for row in rows:
+        cells = row.select('td')
+        name = cells[0].select('a')[0].text
+        name = name.strip()
+
+        desc = cells[1].text.strip()
+
+        bounties[name] = desc
+
+    return bounties
+
+
+def bounty_info(vendor):
+    bounties = _read_bounty_tables(vendor)
+    bounty_template = '%(name)s - %(desc)s'
+
+    bounty_output = []
+    for name, desc in bounties.items():
+        line = bounty_template % {'name': name, 'desc': desc}
+        bounty_output.append(line)
+
+    out = '\n'.join(bounty_output)
+    return out
+
+
 if __name__ == '__main__':
     soup = get_soup()
     print nightfall_info(soup)
