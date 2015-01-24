@@ -20,6 +20,7 @@ setup(
             'nightfall = destiny_bot:nightfall',
             'heroic = destiny_bot:heroic',
             'daily = destiny_bot:daily',
+            'crucible = destiny_bot:crucible',
         ]
     )
 )

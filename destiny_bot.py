@@ -1,6 +1,6 @@
 from helga.plugins import command
 
-from scraper import nightfall_info, heroic_info, daily_info, get_soup
+from scraper import nightfall_info, heroic_info, daily_info, crucible_info, get_soup
 
 nf_help = 'Displays info on the current nightfall from destinytracker.com'
 
@@ -19,3 +19,8 @@ daily_help = 'Displays info on the current heroic daily from planetdestiny.com'
 @command('daily', aliases=(), help=daily_help)
 def daily(client, channel, nick, message, cmd, args):
     return daily_info()
+
+crucible_help = 'Displays info on the current daily crucible mode form planetdestiny.com'
+@command('crucible', aliases=(), help=crucible_help)
+def crucible(client, channel, nick, message, cmd, args):
+    return crucible_info()
