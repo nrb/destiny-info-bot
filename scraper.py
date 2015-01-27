@@ -71,10 +71,15 @@ def _read_bounty_tables(vendor):
 
     vendor = vendor.lower()
 
-    index = {'eris': 0,
+    indicies = {'eris': 0,
                'crucible': 1,
                'vanguard': 2,
-    }[vendor]
+    }
+
+    try:
+        index = indices[vendor]
+    except KeyError:
+        return "Vendor %s was not found"
 
     table = bounty_tables[index]
 
@@ -108,8 +113,13 @@ def bounty_info(vendor):
 
 
 if __name__ == '__main__':
-    soup = get_soup()
-    print nightfall_info(soup)
-    print heroic_info(soup)
-    print daily_info()
-    print crucible_info()
+    #soup = get_soup()
+    #print nightfall_info(soup)
+    #print heroic_info(soup)
+    #print daily_info()
+    #print crucible_info()
+    print bounty_info('Vanguard')
+    print "---"
+    print bounty_info('Crucible')
+    print "---"
+    print bounty_info('Eris')
