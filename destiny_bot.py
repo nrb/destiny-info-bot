@@ -1,7 +1,8 @@
 from helga.plugins import command
 
-from functions import bounties, VENDOR_NAMES, xur_lookup
+from functions import bounty_lookup, xur_lookup
 from scraper import nightfall_info, heroic_info, daily_info, crucible_info, get_soup
+from scraper import VENDOR_NAMES
 
 nf_help = 'Displays info on the current nightfall from destinytracker.com'
 
@@ -32,11 +33,11 @@ def xur(client, channel, nick, message, cmd, args):
 
 valid_names = ' ,'.join(VENDOR_NAMES)
 bounty_help = "Looks up the bounties for a given vendor. Valid names are: %s" % valid_names
-@command('bounties', aliases=('b',) help=bounty_help)
-def bounty_lookup(client, channel, nick, message, cmd, args):
+@command('bounties', aliases=('b',), help=bounty_help)
+def bounties(client, channel, nick, message, cmd, args):
     vendor_name = args[0]
 
     if vendor_name.title() not in VENDOR_NAMES:
         return "Invalid vendor. Valid names are: %s" % valid_names
 
-    return bounties(vendor_name)
+    return bounty_lookup(vendor_name)

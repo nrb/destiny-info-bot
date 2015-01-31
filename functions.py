@@ -2,7 +2,7 @@ import datetime
 
 from pytz import timezone
 
-from scraper import read_bounty_tables, ScrapeError
+from scraper import read_bounty_tables, ScrapeError, VENDOR_NAMES
 
 
 def xur_lookup():
@@ -39,7 +39,7 @@ def xur_lookup():
     return url
 
 
-def bounties(vendor):
+def bounty_lookup(vendor):
     try:
         bounties = read_bounty_tables(vendor)
     except ScrapeError as e:
