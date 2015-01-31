@@ -1,5 +1,6 @@
 from helga.plugins import command
 
+from functions import xur_lookup
 from scraper import nightfall_info, heroic_info, daily_info, crucible_info, get_soup
 
 nf_help = 'Displays info on the current nightfall from destinytracker.com'
@@ -24,3 +25,7 @@ crucible_help = 'Displays info on the current daily crucible mode form planetdes
 @command('crucible', aliases=(), help=crucible_help)
 def crucible(client, channel, nick, message, cmd, args):
     return crucible_info()
+
+@command('xur', aliases=(), help="Gives a URL for looking up Xur's inventory")
+def xur(client, channel, nick, message, cmd, args):
+    return xur_lookup()
