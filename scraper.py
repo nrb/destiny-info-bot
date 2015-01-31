@@ -6,6 +6,9 @@ import bs4
 template = "%(strike)s. Modifiers: %(mods)s"
 event_url = 'http://destinytracker.com/destiny/events'
 
+class ScrapeError(Exception):
+    pass
+
 
 def get_mods(soup, index):
     mod_list = soup.select('ul')[index]
@@ -64,22 +67,24 @@ def crucible_info():
     return "Daily Crucible mode: %s" % mode_title
 
 
-def _read_bounty_tables(vendor):
+BOUNTY_INDICES = {'eris': 0,
+           'crucible': 1,
+           'vanguard': 2,
+}
+
+VENDOR_NAMES = [v.title() for v in BOUNTY_INDICES.keys()]
+
+def read_bounty_tables(vendor):
 
     soup = get_soup("http://db.planetdestiny.com/events")
     bounty_tables = soup.select('table')
 
     vendor = vendor.lower()
 
-    indicies = {'eris': 0,
-               'crucible': 1,
-               'vanguard': 2,
-    }
-
     try:
-        index = indices[vendor]
+        index = BOUNTY_INDICES[vendor]
     except KeyError:
-        return "Vendor %s was not found"
+        raise ScrapeError("Vendor %s was not found" % vendor)
 
     table = bounty_tables[index]
 
@@ -97,19 +102,6 @@ def _read_bounty_tables(vendor):
         bounties[name] = desc
 
     return bounties
-
-
-def bounty_info(vendor):
-    bounties = _read_bounty_tables(vendor)
-    bounty_template = '%(name)s - %(desc)s'
-
-    bounty_output = []
-    for name, desc in bounties.items():
-        line = bounty_template % {'name': name, 'desc': desc}
-        bounty_output.append(line)
-
-    out = '\n'.join(bounty_output)
-    return out
 
 
 if __name__ == '__main__':

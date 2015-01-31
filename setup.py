@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='destiny_bot',
-    version='0.0.9',
+    version='0.0.10',
     description='Set of commands that scrape destinytracker.com for info.',
     author='Nolan Brubaker',
     author_email='palendae@gmail.com',
@@ -23,6 +23,7 @@ setup(
             'daily = destiny_bot:daily',
             'crucible = destiny_bot:crucible',
             'xur = destiny_bot:xur',
+            'bounties = destiny_bot:bounty_lookup',
         ]
     )
 )

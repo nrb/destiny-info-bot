@@ -2,6 +2,8 @@ import datetime
 
 from pytz import timezone
 
+from scraper import read_bounty_tables, ScrapeError
+
 
 def xur_lookup():
     url_pattern = "http://www.vg247.com/%(year)s/%(month)s/%(friday)s/destiny-xur-location-and-inventory-for-%(month_name)s-%(friday)s-%(saturday)s"
@@ -36,6 +38,22 @@ def xur_lookup():
                         }
     return url
 
+
+def bounties(vendor):
+    try:
+        bounties = read_bounty_tables(vendor)
+    except ScrapeError as e:
+        return e
+
+    bounty_template = '%(name)s - %(desc)s'
+
+    bounty_output = []
+    for name, desc in bounties.items():
+        line = bounty_template % {'name': name, 'desc': desc}
+        bounty_output.append(line)
+
+    out = '\n'.join(bounty_output)
+    return out
 
 if __name__ == '__main__':
     print xur_lookup()
