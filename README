@@ -1,3 +1,10 @@
 This repo contains some scraping scripts to retrieve [Destiny Tracker Events](http://destinytracker.com/destiny/events)
 
 Additionally, it contains a module with [Helga](http://helga.readthedocs.org/en/latest/) plugins to output this information to IRC.
+
+Currently, the commands consist of:
+
+* nightfall - Returns name and modifiers on the current week's nightfall strike. (scraped from destinyplanet.com)
+* heroic - Returns name and modifiers on the current week's heroic strike. (scraped from destinyplanet.com)
+* daily - Returns name and modifiers on the current week's story mission (scraped from destinytracker.com)
+* xur - Returns a URL for a www.vg247.com page that lists Xur's location and inventory.
