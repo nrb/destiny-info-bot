@@ -7,7 +7,12 @@ setup(
     author='Nolan Brubaker',
     author_email='palendae@gmail.com',
     packages=find_packages(),
-    py_modules=['destiny_bot', 'scraper', 'functions'],
+    py_modules=[
+        'caching',
+        'destiny_bot',
+        'scraper',
+        'functions'
+    ],
     include_package_data=True,
     zip_safe=True,
     install_requires=[
