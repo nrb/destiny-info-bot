@@ -2,6 +2,8 @@ import datetime
 
 from pytz import timezone
 
+import caching as cache
+
 from scraper import read_bounty_tables, ScrapeError, VENDOR_NAMES
 from scraper import nightfall_info, heroic_info, daily_info, crucible_info, get_soup
 
@@ -41,6 +43,11 @@ def xur_lookup():
 
 
 def bounty_lookup(vendor):
+    key = '%s-bounties' % vendor
+    val = cache.read(key)
+    if val is not None:
+        return val
+
     try:
         bounties = read_bounty_tables(vendor)
     except ScrapeError as e:
@@ -54,25 +61,67 @@ def bounty_lookup(vendor):
         bounty_output.append(line)
 
     out = '\n'.join(bounty_output)
+
+    expiry = datetime.datetime.now() + datetime.timedelta(hours=1)
+
+    cache.write(key, out, expiry)
+
     return out
 
 
 def nightfall_lookup():
+    val = cache.read('nightfall')
+    if val is not None:
+        return val
+
     soup = get_soup()
-    return nightfall_info(soup)
+    val = nightfall_info(soup)
+    expiry = datetime.datetime.now() + datetime.timedelta(hours=1)
+
+    cache.write('nightfall', val, expiry)
+
+    return val
 
 
 def heroic_lookup():
+    val = cache.read('heroic')
+    if val is not None:
+        return val
+
     soup = get_soup()
-    return heroic_info()
+    val = heroic_info(soup)
+    expiry = datetime.datetime.now() + datetime.timedelta(hours=1)
+
+    cache.write('heroic', val, expiry)
+
+    return val
 
 
 def daily_lookup():
-    return daily_info()
+    val = cache.read('daily')
+    if val is not None:
+        return val
+
+    val = daily_info()
+    expiry = datetime.datetime.now() + datetime.timedelta(hours=1)
+
+    cache.write('daily', val, expiry)
+
+    return val
 
 
 def crucible_lookup():
-    return crucible_info()
+    val = cache.read('daily')
+
+    if val is not None:
+        return val
+
+    val = daily_info()
+    expiry = datetime.datetime.now() + datetime.timedelta(hours=1)
+
+    cache.write('daily', val, expiry)
+
+    return val
 
 if __name__ == '__main__':
     #print xur_lookup()
