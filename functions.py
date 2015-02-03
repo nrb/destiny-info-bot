@@ -3,6 +3,7 @@ import datetime
 from pytz import timezone
 
 from scraper import read_bounty_tables, ScrapeError, VENDOR_NAMES
+from scraper import nightfall_info, heroic_info, daily_info, crucible_info, get_soup
 
 
 def xur_lookup():
@@ -55,5 +56,29 @@ def bounty_lookup(vendor):
     out = '\n'.join(bounty_output)
     return out
 
+
+def nightfall_lookup():
+    soup = get_soup()
+    return nightfall_info(soup)
+
+
+def heroic_lookup():
+    soup = get_soup()
+    return heroic_info()
+
+
+def daily_lookup():
+    return daily_info()
+
+
+def crucible_lookup():
+    return crucible_info()
+
 if __name__ == '__main__':
-    print xur_lookup()
+    #print xur_lookup()
+    print bounties('bad')
+    print "----"
+    print bounties('Eris')
+    print "----"
+    print bounties('Vanguard')
+
