@@ -4,6 +4,14 @@ from functions import bounty_lookup, xur_lookup
 from scraper import nightfall_info, heroic_info, daily_info, crucible_info, get_soup
 from scraper import VENDOR_NAMES
 
+guard_help = "Returns a guardian's destinytracker.com page"
+@command('guardian', aliases=('g',), help=guard_help)
+def guardian(client, channel, nick, message, cmd, args):
+    if len(args) != 2:
+        return 'Command takes 2 arguments: !guardian system name'
+    system, name = args[0], args[1]
+    return gurdian_lookup(system, name)
+
 nf_help = 'Displays info on the current nightfall from destinytracker.com'
 
 @command('nightfall', aliases=('nf',), help=nf_help)

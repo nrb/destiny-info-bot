@@ -4,6 +4,15 @@ from pytz import timezone
 
 from scraper import read_bounty_tables, ScrapeError, VENDOR_NAMES
 
+VALID_SYSTEMS = ('ps', 'xbox')
+
+
+def guardian_lookup(system, name):
+    if system not in VALID_SYSTEMS:
+        return '%s is not a valid system' % system
+    link_template = 'http://destinytracker.com/destiny/overview/%(system)s/%(name)s'
+
+    return link_template % {'system': system, 'name': name}
 
 def xur_lookup():
     url_pattern = "http://www.vg247.com/%(year)s/%(month)s/%(friday)s/destiny-xur-location-and-inventory-for-%(month_name)s-%(friday)s-%(saturday)s"
