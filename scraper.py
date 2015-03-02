@@ -32,8 +32,8 @@ def strike_title(soup):
     return title
 
 
-nightfall_mods = partial(get_mods, index=9)
-heroic_mods = partial(get_mods, index=10)
+nightfall_mods = partial(get_mods, index=25)
+heroic_mods = partial(get_mods, index=26)
 
 def nightfall_info(soup):
     return template % {'strike': strike_title(soup),
