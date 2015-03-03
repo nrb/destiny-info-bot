@@ -111,15 +111,15 @@ def daily_lookup():
 
 
 def crucible_lookup():
-    val = cache.read('daily')
+    val = cache.read('crucible')
 
     if val is not None:
         return val
 
-    val = daily_info()
+    val = crucible_info()
     expiry = datetime.datetime.now() + datetime.timedelta(hours=1)
 
-    cache.write('daily', val, expiry)
+    cache.write('crucible', val, expiry)
 
     return val
 
