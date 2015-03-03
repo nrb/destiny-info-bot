@@ -78,26 +78,28 @@ def crucible_info():
     return "Daily Crucible mode: %s" % mode_title
 
 
-BOUNTY_INDICES = {'eris': 0,
-           'crucible': 1,
-           'vanguard': 2,
-}
+VENDOR_NAMES = [
+    'eris',
+    'crucible',
+    'vanguard',
+]
 
-VENDOR_NAMES = [v.title() for v in BOUNTY_INDICES.keys()]
+def find_tables(vendor):
+    soup = get_soup("http://db.planetdestiny.com/events")
+    headers = soup.select('h3')
+    target_index = None
+    for index, header in enumerate(headers):
+        if vendor in header.text.lower():
+            target_index = index
+            break
+
+    table = soup.select('table')[target_index]
+
+    return table
 
 def read_bounty_tables(vendor):
-
-    soup = get_soup("http://db.planetdestiny.com/events")
-    bounty_tables = soup.select('table')
-
     vendor = vendor.lower()
-
-    try:
-        index = BOUNTY_INDICES[vendor]
-    except KeyError:
-        raise ScrapeError("Vendor %s was not found" % vendor)
-
-    table = bounty_tables[index]
+    table = find_tables(vendor)
 
     # The first row is the heading
     rows = table.select('tr')[1:]
