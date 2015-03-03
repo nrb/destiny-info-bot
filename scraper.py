@@ -10,7 +10,18 @@ class ScrapeError(Exception):
     pass
 
 
-def get_mods(soup, index):
+def find_term(soup, term):
+    lists = soup.select('ul')
+    for idx, ul in enumerate(lists):
+        if term in ul.text:
+            return idx
+    return None
+
+def get_mods(soup, term):
+    index = find_term(soup, term)
+    if index is None:
+        return ''
+
     mod_list = soup.select('ul')[index]
 
     modifiers = [li.text for li in mod_list.select('li')]
@@ -32,8 +43,8 @@ def strike_title(soup):
     return title
 
 
-nightfall_mods = partial(get_mods, index=25)
-heroic_mods = partial(get_mods, index=26)
+nightfall_mods = partial(get_mods, term='Nightfall')
+heroic_mods = partial(get_mods, term='Heroic')
 
 def nightfall_info(soup):
     return template % {'strike': strike_title(soup),
