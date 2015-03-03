@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='destiny_bot',
-    version='0.0.15',
+    version='0.0.16',
     description='Set of commands that scrape destinytracker.com for info.',
     author='Nolan Brubaker',
     author_email='palendae@gmail.com',
@@ -19,7 +19,7 @@ setup(
     install_requires=[
         'beautifulsoup4==4.3.2',
         'requests==2.2.1',
-        'helga==1.6.4',
+        'helga',
         'pytz',
     ],
     entry_points = dict(
