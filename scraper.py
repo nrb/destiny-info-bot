@@ -43,17 +43,32 @@ def strike_title(soup):
     return title
 
 
-nightfall_mods = partial(get_mods, term='Nightfall')
-heroic_mods = partial(get_mods, term='Heroic')
+NIGHTFALL = 'nightfall'
+WEEKLY_HEROIC = 'weekly heroic'
+
+def weekly_lockout_event_info(soup, event):
+    """:param soup: the document to search through
+       :param event: the name of the event (should be either
+                     ``NIGHTFALL`` or ``WEEKLY_HEROIC`` as defined in the
+                     ``scraper`` module).
+    """
+
+    # FIXME: the next() call will raise if it doesn't find at least one node
+    title = next(i for i in soup.select('div.activity-title')
+                 if event in i.text.lower())
+    root = title.findParent().findParent().findParent()
+    mods = [i.text for i in root.select('.tooltip-caption')]
+    return template % {
+        'strike': title.findNextSibling().text,
+        'mods': ', '.join(i.text for i in root.select('.tooltip-caption'))}
+
 
 def nightfall_info(soup):
-    return template % {'strike': strike_title(soup),
-                       'mods': nightfall_mods(soup)}
+    return weekly_lockout_event_info(soup, NIGHTFALL)
 
 
 def heroic_info(soup):
-    return template % {'strike': strike_title(soup),
-                       'mods': heroic_mods(soup)}
+    return weekly_lockout_event_info(soup, WEEKLY_HEROIC)
 
 
 def daily_info():
@@ -118,13 +133,14 @@ def read_bounty_tables(vendor):
 
 
 if __name__ == '__main__':
-    #soup = get_soup()
-    #print nightfall_info(soup)
-    #print heroic_info(soup)
-    #print daily_info()
-    #print crucible_info()
-    print bounty_info('Vanguard')
-    print "---"
-    print bounty_info('Crucible')
-    print "---"
-    print bounty_info('Eris')
+    weekly_soup = get_soup('http://db.planetdestiny.com')
+    print nightfall_info(weekly_soup)
+    print heroic_info(weekly_soup)
+    # soup = get_soup()
+    # print daily_info()
+    # print crucible_info()
+    # print bounty_info('Vanguard')
+    # print "---"
+    # print bounty_info('Crucible')
+    # print "---"
+    # print bounty_info('Eris')
