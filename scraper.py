@@ -57,7 +57,6 @@ def weekly_lockout_event_info(soup, event):
     title = next(i for i in soup.select('div.activity-title')
                  if event in i.text.lower())
     root = title.findParent().findParent().findParent()
-    mods = [i.text for i in root.select('.tooltip-caption')]
     return template % {
         'strike': title.findNextSibling().text,
         'mods': ', '.join(i.text for i in root.select('.tooltip-caption'))}
