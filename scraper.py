@@ -10,7 +10,18 @@ class ScrapeError(Exception):
     pass
 
 
-def get_mods(soup, index):
+def find_term(soup, term):
+    lists = soup.select('ul')
+    for idx, ul in enumerate(lists):
+        if term in ul.text:
+            return idx
+    return None
+
+def get_mods(soup, term):
+    index = find_term(soup, term)
+    if index is None:
+        return ''
+
     mod_list = soup.select('ul')[index]
 
     modifiers = [li.text for li in mod_list.select('li')]
@@ -32,8 +43,8 @@ def strike_title(soup):
     return title
 
 
-nightfall_mods = partial(get_mods, index=9)
-heroic_mods = partial(get_mods, index=10)
+nightfall_mods = partial(get_mods, term='Nightfall')
+heroic_mods = partial(get_mods, term='Heroic')
 
 def nightfall_info(soup):
     return template % {'strike': strike_title(soup),
@@ -67,26 +78,28 @@ def crucible_info():
     return "Daily Crucible mode: %s" % mode_title
 
 
-BOUNTY_INDICES = {'eris': 0,
-           'crucible': 1,
-           'vanguard': 2,
-}
+VENDOR_NAMES = [
+    'eris',
+    'crucible',
+    'vanguard',
+]
 
-VENDOR_NAMES = [v.title() for v in BOUNTY_INDICES.keys()]
+def find_tables(vendor):
+    soup = get_soup("http://db.planetdestiny.com/events")
+    headers = soup.select('h3')
+    target_index = None
+    for index, header in enumerate(headers):
+        if vendor in header.text.lower():
+            target_index = index
+            break
+
+    table = soup.select('table')[target_index]
+
+    return table
 
 def read_bounty_tables(vendor):
-
-    soup = get_soup("http://db.planetdestiny.com/events")
-    bounty_tables = soup.select('table')
-
     vendor = vendor.lower()
-
-    try:
-        index = BOUNTY_INDICES[vendor]
-    except KeyError:
-        raise ScrapeError("Vendor %s was not found" % vendor)
-
-    table = bounty_tables[index]
+    table = find_tables(vendor)
 
     # The first row is the heading
     rows = table.select('tr')[1:]

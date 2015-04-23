@@ -9,3 +9,6 @@ Currently, the commands consist of:
 * daily - Returns name and modifiers on the current week's story mission (scraped from destinytracker.com)
 * xur - Returns a URL for a www.vg247.com page that lists Xur's location and inventory.
 * bounties - Returns a list of available bounty missions from the specified vendor.
+
+The project also comes with a `check.py` executable script that allows you to check the daily, heroic, and nightfall commands
+from a command line shell.

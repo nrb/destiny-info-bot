@@ -6,6 +6,7 @@ helga==1.6.4
 pyOpenSSL==0.13
 pymongo==2.5.2
 pystache==0.5.4
+pytest
 pytz
 requests==2.2.1
 smokesignal==0.5
