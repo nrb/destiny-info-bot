@@ -83,7 +83,7 @@ def nightfall_lookup():
     if val is not None:
         return val
 
-    soup = get_soup()
+    soup = get_soup('http://db.planetdestiny.com')
     val = nightfall_info(soup)
     expiry = datetime.datetime.now() + datetime.timedelta(hours=1)
 
@@ -97,7 +97,7 @@ def heroic_lookup():
     if val is not None:
         return val
 
-    soup = get_soup()
+    soup = get_soup('http://db.planetdestiny.com')
     val = heroic_info(soup)
     expiry = datetime.datetime.now() + datetime.timedelta(hours=1)
 
