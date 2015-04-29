@@ -15,6 +15,10 @@ def process_activities(api_response):
     Processes a Bungie API response by pulling out activity data from the rest
     of the information. These definitions will be further processed into
     less obscured dictionaries by other functions.
+
+    :param api_response: A dictionary of the original Bungie API response
+    :return dictionary: Dictionary mapping the nightfal, heroic, daily, and
+                        crucible event information to these names.
     """
 
     activity_map = {}
@@ -28,7 +32,7 @@ def process_activities(api_response):
 
     activity_map['nightfall'] = activities[nightfall_hash]
 
-    activity_map['crucible'] = activities[crucible_hash]
+    activity_mao['crucible'] = activities[crucible_hash]
 
     dailies_info = []
     for d_hash in daily_hashes:
@@ -45,6 +49,10 @@ def process_activities(api_response):
     return activity_map
 
 def process_nightfall(activity_map):
+    """
+    :param activity_map: A dictionary of processed event information
+    :return dictionary: A dictionary of the Nightfall's information
+    """
     nightfall_info = activity_map['nightfall']
     description = nightfall_info['activityDescription']
     skulls = nightfall_info['skulls']
@@ -52,9 +60,68 @@ def process_nightfall(activity_map):
 
     title = nightfall_info['activityName']
 
+    nf_dict = {'title': title,
+               'description': description,
+               'mods': mods',
+    }
+
+    return nf_dict
+
+def process_heroic(activity_map):
+    """
+    :param activity_map: A dictionary of processed event information
+    :return dictionary: A dictionary of the Heroic's information
+    """
+    heroic_info = activity_map['heroic']
+
+    # Here, we'll just use the first instance's information
+    # since the only variation should be the levels.
+    heroic = heroic_info[0]
+    description = heroic['activityDescription']
+    skulls = heroic_info['skulls']
+    mods = [s['displayName'] for s in skulls]
+
+    title = heroic_info['activityName']
+
+    heroic_dict = {'title': title,
+                   'description': description,
+                   'mods': mods',
+    }
+    return daily_dict
+
+def process_daily(activity_map):
+    """
+    :param activity_map: A dictionary of processed event information
+    :return dictionary: A dictionary of the Daily's information
+    """
+    daily_info = activity_map['daily']
+
+    # Here, we'll just use the first instance's information
+    # since the only variation should be the levels.
+    daily = daily_info[0]
+    description = daily['activityDescription']
+    skulls = daily_info['skulls']
+    mods = [s['displayName'] for s in skulls]
+
+    title = daily_info['activityName']
+
+    daily_dict = {'title': title,
+                  'description': description,
+                  'mods': mods',
+    }
+    return daily_dict
+
 def process_crucible(activity_map):
-    # Note: 'skulls' is an empty list in Crucible
-    pass
+    crucible_info = activity_map['crucible']
+    description = crucible_info['activityDescription']
+
+    title = crucible_info['activityName']
+
+    crucible_dict = {'title': title,
+                     'description': description,
+    }
+
+    return crucible_dict
 
 
 if __name__ == '__main__':
