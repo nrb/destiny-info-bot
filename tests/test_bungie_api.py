@@ -38,6 +38,10 @@ def test_process_nightfall():
     assert all(key in nf.keys() for key in keys)
     assert 'Nightfall' in nf['title']
     assert 'Will of Crota' in nf['name']
+    assert len(nf['mods']) == 5
+    assert 'Void Burn' in nf['mods']
+    assert 'Arc Burn' in nf['mods']
+    assert 'Solar Burn' in nf['mods']
 
 
 def test_process_heroic():
@@ -51,6 +55,9 @@ def test_process_heroic():
     assert all(key in heroic.keys() for key in keys)
     assert 'Heroic' in heroic['title']
     assert 'Will of Crota' in heroic['name']
+    assert len(heroic['mods']) == 2
+    assert 'Heroic' in heroic['mods']
+    assert 'Solar Burn' in heroic['mods']
 
 def test_process_daily():
     api_response = bungie.fetch_activities('url')
@@ -63,6 +70,9 @@ def test_process_daily():
     assert all(key in daily.keys() for key in keys)
     assert 'Siege of the Warmind' in daily['title']
     assert 'Siege of the Warmind' in daily['name']
+    assert len(daily['mods']) == 2
+    assert 'Heroic' in daily['mods']
+    assert 'Angry' in daily['mods']
 
 def test_process_crucible():
     api_response = bungie.fetch_activities('url')
