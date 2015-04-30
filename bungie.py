@@ -32,7 +32,7 @@ def process_activities(api_response):
 
     activity_map['nightfall'] = activities[nightfall_hash]
 
-    activity_mao['crucible'] = activities[crucible_hash]
+    activity_map['crucible'] = activities[crucible_hash]
 
     dailies_info = []
     for d_hash in daily_hashes:
@@ -62,7 +62,7 @@ def process_nightfall(activity_map):
 
     nf_dict = {'title': title,
                'description': description,
-               'mods': mods',
+               'mods': mods,
     }
 
     return nf_dict
@@ -72,12 +72,12 @@ def process_heroic(activity_map):
     :param activity_map: A dictionary of processed event information
     :return dictionary: A dictionary of the Heroic's information
     """
-    heroic_info = activity_map['heroic']
+    heroic_acts = activity_map['heroic']
 
     # Here, we'll just use the first instance's information
     # since the only variation should be the levels.
-    heroic = heroic_info[0]
-    description = heroic['activityDescription']
+    heroic_info = heroic_acts[0]
+    description = heroic_info['activityDescription']
     skulls = heroic_info['skulls']
     mods = [s['displayName'] for s in skulls]
 
@@ -85,21 +85,21 @@ def process_heroic(activity_map):
 
     heroic_dict = {'title': title,
                    'description': description,
-                   'mods': mods',
+                   'mods': mods,
     }
-    return daily_dict
+    return heroic_dict
 
 def process_daily(activity_map):
     """
     :param activity_map: A dictionary of processed event information
     :return dictionary: A dictionary of the Daily's information
     """
-    daily_info = activity_map['daily']
+    daily_acts = activity_map['daily']
 
     # Here, we'll just use the first instance's information
     # since the only variation should be the levels.
-    daily = daily_info[0]
-    description = daily['activityDescription']
+    daily_info = daily_acts[0]
+    description = daily_info['activityDescription']
     skulls = daily_info['skulls']
     mods = [s['displayName'] for s in skulls]
 
@@ -107,7 +107,7 @@ def process_daily(activity_map):
 
     daily_dict = {'title': title,
                   'description': description,
-                  'mods': mods',
+                  'mods': mods,
     }
     return daily_dict
 
