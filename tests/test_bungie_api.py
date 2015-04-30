@@ -34,9 +34,11 @@ def test_process_nightfall():
 
     nf = bungie.process_nightfall(activities)
 
-    keys = ('title', 'description', 'mods')
+    keys = ('title', 'description', 'mods', 'name')
     assert all(key in nf.keys() for key in keys)
     assert 'Nightfall' in nf['title']
+    assert 'Will of Crota' in nf['name']
+
 
 def test_process_heroic():
     api_response = bungie.fetch_activities('url')
@@ -45,9 +47,10 @@ def test_process_heroic():
 
     heroic = bungie.process_heroic(activities)
 
-    keys = ('title', 'description', 'mods')
+    keys = ('title', 'description', 'mods', 'name')
     assert all(key in heroic.keys() for key in keys)
     assert 'Heroic' in heroic['title']
+    assert 'Will of Crota' in heroic['name']
 
 def test_process_daily():
     api_response = bungie.fetch_activities('url')
@@ -58,7 +61,8 @@ def test_process_daily():
 
     keys = ('title', 'description', 'mods')
     assert all(key in daily.keys() for key in keys)
-    assert'Siege of the Warmind' in daily['title']
+    assert 'Siege of the Warmind' in daily['title']
+    assert 'Siege of the Warmind' in daily['name']
 
 def test_process_crucible():
     api_response = bungie.fetch_activities('url')
@@ -67,6 +71,7 @@ def test_process_crucible():
 
     crucible = bungie.process_crucible(activities)
 
-    keys = ('title', 'description')
+    keys = ('title', 'description', 'name')
     assert all(key in crucible.keys() for key in keys)
     assert "Executor's Challenge" in crucible['title']
+    assert "Executor's Challenge" in crucible['name']

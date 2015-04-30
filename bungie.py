@@ -2,6 +2,8 @@ import json
 
 import requests
 
+from strike import get_short_name
+
 ACTIVITY_URL = 'http://www.bungie.net/Platform/Destiny/Advisors/?definitions=True'
 
 def fetch_activities():
@@ -60,9 +62,12 @@ def process_nightfall(activity_map):
 
     title = nightfall_info['activityName']
 
+    name = get_short_name(description)
+
     nf_dict = {'title': title,
                'description': description,
                'mods': mods,
+               'name': name,
     }
 
     return nf_dict
@@ -83,9 +88,12 @@ def process_heroic(activity_map):
 
     title = heroic_info['activityName']
 
+    name = get_short_name(description)
+
     heroic_dict = {'title': title,
                    'description': description,
                    'mods': mods,
+                   'name': name,
     }
     return heroic_dict
 
@@ -108,6 +116,7 @@ def process_daily(activity_map):
     daily_dict = {'title': title,
                   'description': description,
                   'mods': mods,
+                  'name': title,
     }
     return daily_dict
 
@@ -119,6 +128,7 @@ def process_crucible(activity_map):
 
     crucible_dict = {'title': title,
                      'description': description,
+                     'name': title,
     }
 
     return crucible_dict
