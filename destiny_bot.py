@@ -37,13 +37,13 @@ def crucible(client, channel, nick, message, cmd, args):
 def xur(client, channel, nick, message, cmd, args):
     return xur_lookup()
 
-valid_names = ' ,'.join(VENDOR_NAMES)
+valid_names = ', '.join(VENDOR_NAMES)
 bounty_help = "Looks up the bounties for a given vendor. Valid names are: %s" % valid_names
 @command('bounties', aliases=('b',), help=bounty_help)
 def bounties(client, channel, nick, message, cmd, args):
     vendor_name = args[0]
 
-    if vendor_name.title() not in VENDOR_NAMES:
+    if vendor_name.lower() not in VENDOR_NAMES:
         return "Invalid vendor. Valid names are: %s" % valid_names
 
     return bounty_lookup(vendor_name)
