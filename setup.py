@@ -8,10 +8,12 @@ setup(
     author_email='palendae@gmail.com',
     packages=find_packages(),
     py_modules=[
+        'bungie',
         'caching',
         'check',
         'destiny_bot',
         'scraper',
+        'strike',
         'functions'
     ],
     include_package_data=True,
