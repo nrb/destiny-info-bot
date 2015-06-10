@@ -10,7 +10,7 @@ class UnknownStrikeError(Exception):
 
 DEVILS_LAIR = Strike("The Devil's Lair", ("sepiks",))
 WILL_OF_CROTA = Strike("Will of Crota", ("omnigul",))
-SUMMONING_PITS = Strike("The Summoning Pits", ("hellmouth", "find the pit", "powerful abominations"))
+SUMMONING_PITS = Strike("The Summoning Pits", ("abomination", "pit"))
 NEXUS = Strike("The Nexus", ("nexus",))
 WINTERS_RUN = Strike("Winter's Run", ("archon", "house of winter", "prison of elders"))
 CERBERUS_VAE_III = Strike("Cerberus Vae III", ("valus ta'aurc", "tank"))

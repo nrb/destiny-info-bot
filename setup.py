@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='destiny_bot',
-    version='0.1.2',
+    version='0.1.3',
     description='Set of commands that scrape destinytracker.com for info.',
     author='Nolan Brubaker',
     author_email='palendae@gmail.com',

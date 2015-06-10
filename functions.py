@@ -100,6 +100,8 @@ def daily_lookup():
 def crucible_lookup():
     info_dict = get_activity_details('crucible')
 
+    template = "%(name)s, %(description)s"
+
     return template % info_dict
 
 if __name__ == '__main__':
