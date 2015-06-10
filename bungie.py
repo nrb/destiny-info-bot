@@ -50,6 +50,9 @@ def process_activities(api_response):
 
     return activity_map
 
+def stringify_mods(mod_list):
+    return ", ".join(mod_list)
+
 def process_nightfall(activity_map):
     """
     :param activity_map: A dictionary of processed event information
@@ -66,7 +69,7 @@ def process_nightfall(activity_map):
 
     nf_dict = {'title': title,
                'description': description,
-               'mods': mods,
+               'mods': stringify_mods(mods),
                'name': name,
     }
 
@@ -92,7 +95,7 @@ def process_heroic(activity_map):
 
     heroic_dict = {'title': title,
                    'description': description,
-                   'mods': mods,
+                   'mods': stringify_mods(mods),
                    'name': name,
     }
     return heroic_dict
@@ -115,7 +118,7 @@ def process_daily(activity_map):
 
     daily_dict = {'title': title,
                   'description': description,
-                  'mods': mods,
+                  'mods': stringify_mods(mods),
                   'name': title,
     }
     return daily_dict
