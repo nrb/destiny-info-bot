@@ -2,12 +2,13 @@ import datetime
 
 from pytz import timezone
 
+from bungie import get_activity_details
 import caching as cache
 
 from scraper import read_bounty_tables, ScrapeError, VENDOR_NAMES
-from scraper import nightfall_info, heroic_info, daily_info, crucible_info, get_soup
 
 VALID_SYSTEMS = ('ps', 'xbox')
+template = "%(name)s. Modifiers: %(mods)s"
 
 
 def guardian_lookup(system, name):
@@ -79,64 +80,29 @@ def bounty_lookup(vendor):
 
 
 def nightfall_lookup():
-    val = cache.read('nightfall')
-    if val is not None:
-        return val
+    info_dict = get_activity_details('nightfall')
 
-    soup = get_soup('http://db.planetdestiny.com')
-    val = nightfall_info(soup)
-    expiry = datetime.datetime.now() + datetime.timedelta(hours=1)
-
-    cache.write('nightfall', val, expiry)
-
-    return val
+    return template % info_dict
 
 
 def heroic_lookup():
-    val = cache.read('heroic')
-    if val is not None:
-        return val
+    info_dict = get_activity_details('heroic')
 
-    soup = get_soup('http://db.planetdestiny.com')
-    val = heroic_info(soup)
-    expiry = datetime.datetime.now() + datetime.timedelta(hours=1)
-
-    cache.write('heroic', val, expiry)
-
-    return val
+    return template % info_dict
 
 
 def daily_lookup():
-    val = cache.read('daily')
-    if val is not None:
-        return val
+    info_dict = get_activity_details('daily')
 
-    val = daily_info()
-    expiry = datetime.datetime.now() + datetime.timedelta(hours=1)
-
-    cache.write('daily', val, expiry)
-
-    return val
+    return template % info_dict
 
 
 def crucible_lookup():
-    val = cache.read('crucible')
+    info_dict = get_activity_details('crucible')
 
-    if val is not None:
-        return val
-
-    val = crucible_info()
-    expiry = datetime.datetime.now() + datetime.timedelta(hours=1)
-
-    cache.write('crucible', val, expiry)
-
-    return val
+    return template % info_dict
 
 if __name__ == '__main__':
-    #print xur_lookup()
-    print bounties('bad')
-    print "----"
-    print bounties('Eris')
-    print "----"
-    print bounties('Vanguard')
 
+    print "----"
+    print nightfall_lookup()

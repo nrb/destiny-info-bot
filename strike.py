@@ -38,7 +38,6 @@ def get_short_name(description):
     :raises UnknownStrikeError: if no matching strike name is found.
     """
     text = description.lower()
-    print text
     for match in (s for s in STRIKES if all(term in text for term in s.terms)):
         return match.name
     else:

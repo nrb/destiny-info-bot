@@ -133,6 +133,19 @@ def process_crucible(activity_map):
 
     return crucible_dict
 
+def get_activity_details(activity_name):
+    funcs = {
+        'nightfall': process_nightfall,
+        'daily': process_daily,
+        'crucible': process_crucible,
+        'heroic': process_heroic,
+    }
+
+    # TODO: Caching logic could probably go here.
+    activity_json = fetch_activities()
+    activities = process_activities(activity_json)
+
+    return funcs[activity_name](activities)
 
 if __name__ == '__main__':
     act_json = fetch_activities()
