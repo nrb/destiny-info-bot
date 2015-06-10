@@ -16,6 +16,7 @@ WINTERS_RUN = Strike("Winter's Run", ("archon", "house of winter", "prison of el
 CERBERUS_VAE_III = Strike("Cerberus Vae III", ("valus ta'aurc", "tank"))
 DUST_PALACE = Strike("Dust Palace", ("psion flayers", "martian warmind", "cabal"))
 UNDYING_MIND = Strike("Undying Mind", ("ancient mind", "black garden"))
+SHADOW_THIEF = Strike("The Shadow Thief", ("ketch", "taniks"))
 STRIKES = (
     DEVILS_LAIR,
     WILL_OF_CROTA,
@@ -24,7 +25,8 @@ STRIKES = (
     WINTERS_RUN,
     CERBERUS_VAE_III,
     DUST_PALACE,
-    UNDYING_MIND
+    UNDYING_MIND,
+    SHADOW_THIEF,
 )
 
 
@@ -36,6 +38,7 @@ def get_short_name(description):
     :raises UnknownStrikeError: if no matching strike name is found.
     """
     text = description.lower()
+    print text
     for match in (s for s in STRIKES if all(term in text for term in s.terms)):
         return match.name
     else:
@@ -52,5 +55,6 @@ __all__ = (
     'WINTERS_RUN',
     'CERBERUS_VAE_III',
     'DUST_PALACE',
-    'UNDYING_MIND'
+    'UNDYING_MIND',
+    'SHADOW_THIEF',
 )
