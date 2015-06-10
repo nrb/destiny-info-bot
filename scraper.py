@@ -61,14 +61,3 @@ def read_bounty_tables(vendor):
         bounties[name] = desc
 
     return bounties
-
-
-if __name__ == '__main__':
-    # soup = get_soup()
-    # print daily_info()
-    # print crucible_info()
-    # print bounty_info('Vanguard')
-    # print "---"
-    # print bounty_info('Crucible')
-    # print "---"
-    # print bounty_info('Eris')
